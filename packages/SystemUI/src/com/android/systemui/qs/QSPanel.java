@@ -30,6 +30,7 @@ import android.graphics.PorterDuff.Mode;
 import android.graphics.Point;
 import android.os.Handler;
 import android.os.Message;
+import android.os.UserHandle;
 import android.provider.Settings;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -607,7 +608,6 @@ public class QSPanel extends ViewGroup {
         fireScanStateChanged(scanState);
     }
 
-<<<<<<< HEAD
     public void setDetailBackgroundColor(int color) {
         mQSCSwitch = Settings.System.getInt(getContext().getContentResolver(),
                 Settings.System.QS_COLOR_SWITCH, 0) == 1;
@@ -630,14 +630,12 @@ public class QSPanel extends ViewGroup {
         refreshAllTiles();
     }
 
-=======
     public void setDetailOffset(int translationY) {
         if (!isShowingDetail()) {
             mTranslationTop = translationY;
         }
     }
 
->>>>>>> 1c7c028... SystemUI: improve qs tile scroll handling
     private class H extends Handler {
         private static final int SHOW_DETAIL = 1;
         private static final int SET_TILE_VISIBILITY = 2;

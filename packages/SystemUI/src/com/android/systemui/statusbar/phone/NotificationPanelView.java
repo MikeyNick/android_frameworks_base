@@ -27,11 +27,8 @@ import android.content.res.Configuration;
 import android.database.ContentObserver;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-<<<<<<< HEAD
-import android.graphics.PorterDuff.Mode;
 import android.net.Uri;
-=======
->>>>>>> 1c7c028... SystemUI: improve qs tile scroll handling
+import android.graphics.PorterDuff.Mode;
 import android.os.Handler;
 import android.os.PowerManager;
 import android.provider.Settings;
