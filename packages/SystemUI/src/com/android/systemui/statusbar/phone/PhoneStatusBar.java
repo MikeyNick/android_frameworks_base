@@ -313,6 +313,7 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
     // center clock
     LinearLayout mCenterClockLayout;
     
+    private boolean mQSCSwitch;
     private boolean mShowClock;
     private int mClockLocation;
 
@@ -457,6 +458,9 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.BATTERY_SAVER_MODE_COLOR),
                     false, this, UserHandle.USER_ALL);
+	        resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.QS_COLOR_SWITCH),
+                    false, this, UserHandle.USER_ALL);
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.HEADS_UP_NOTIFCATION_DECAY),
                     false, this, UserHandle.USER_ALL);
@@ -481,7 +485,13 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
                         mBatterySaverWarningColor = mContext.getResources()
                                 .getColor(com.android.internal.R.color.battery_saver_mode_color);
                     }
-
+	            } else if (uri.equals(Settings.System.getUriFor(
+                    Settings.System.QS_COLOR_SWITCH))) {
+                    mQSCSwitch = Settings.System.getIntForUser(
+                            mContext.getContentResolver(),
+                            Settings.System.QS_COLOR_SWITCH,
+                            0, UserHandle.USER_CURRENT) == 1;
+                    recreateStatusBar();
             } else if (uri.equals(Settings.System.getUriFor(
                     Settings.System.HEADS_UP_NOTIFCATION_DECAY))) {
                     mHeadsUpNotificationDecay = Settings.System.getIntForUser(
@@ -510,7 +520,9 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
             mShowStatusBarCarrier = Settings.System.getInt(
                     resolver, Settings.System.STATUS_BAR_CARRIER, 0) == 1;
                     showStatusBarCarrierLabel(mShowStatusBarCarrier);
-
+	        mQSCSwitch = Settings.System.getIntForUser(
+                    resolver, Settings.System.QS_COLOR_SWITCH, 0,
+                    UserHandle.USER_CURRENT) == 1;
             if (mNavigationBarView != null) {
                 boolean navLeftInLandscape = Settings.System.getIntForUser(resolver,
                         Settings.System.NAVBAR_LEFT_IN_LANDSCAPE, 0, UserHandle.USER_CURRENT) == 1;
